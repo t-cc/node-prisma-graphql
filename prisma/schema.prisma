@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:../data.sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // @todo: Suported by cliente but not by typegraphql
+  // previewFeatures = ["prismaSchemaFolder"]
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  useSimpleInputs = true
+}
+
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products  Product[]
+}
+
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  category  Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+}
