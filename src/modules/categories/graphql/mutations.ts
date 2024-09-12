@@ -1,15 +1,16 @@
+import { ApolloContext } from '@core/handlers/types'
 import { Category } from '@generated/type-graphql'
 import { CreateCategoryArgs, UpdateCategoryArgs } from './inputs'
 import * as TypeGraphQL from 'type-graphql'
 import type { GraphQLResolveInfo } from 'graphql'
 
-@TypeGraphQL.Resolver((_of) => Category)
+@TypeGraphQL.Resolver(() => Category)
 export class CategoryMutations {
-  @TypeGraphQL.Mutation((_returns) => Category, {
+  @TypeGraphQL.Mutation(() => Category, {
     nullable: true,
   })
   async createCategory(
-    @TypeGraphQL.Ctx() ctx: any,
+    @TypeGraphQL.Ctx() ctx: ApolloContext,
     @TypeGraphQL.Info() info: GraphQLResolveInfo,
     @TypeGraphQL.Args() args: CreateCategoryArgs,
   ): Promise<Category | null> {
@@ -22,11 +23,11 @@ export class CategoryMutations {
     })
   }
 
-  @TypeGraphQL.Mutation((_returns) => Category, {
+  @TypeGraphQL.Mutation(() => Category, {
     nullable: true,
   })
   async updateCategory(
-    @TypeGraphQL.Ctx() ctx: any,
+    @TypeGraphQL.Ctx() ctx: ApolloContext,
     @TypeGraphQL.Info() info: GraphQLResolveInfo,
     @TypeGraphQL.Args() args: UpdateCategoryArgs,
   ): Promise<Category | null> {

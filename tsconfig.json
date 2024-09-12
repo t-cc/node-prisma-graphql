@@ -13,6 +13,7 @@
     "baseUrl": "src",
     "paths": {
       "@modules/*": ["modules/*"],
+      "@core/*": ["core/*"]
     }
   },
   "exclude": [

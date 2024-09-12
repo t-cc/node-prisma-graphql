@@ -1,21 +1,21 @@
-import { Context } from 'node:vm'
+import { ApolloContext } from '@core/handlers/types'
 import { Category } from '@generated/type-graphql'
 import * as TypeGraphQL from 'type-graphql'
 
-@TypeGraphQL.Resolver((of) => Category)
+@TypeGraphQL.Resolver(() => Category)
 export class CategoryFieldResolver {
-  @TypeGraphQL.FieldResolver((type) => String, { nullable: true })
+  @TypeGraphQL.FieldResolver(() => String, { nullable: true })
   async fullName(
     @TypeGraphQL.Root() category: Category,
-    @TypeGraphQL.Ctx() { prisma }: Context,
+    @TypeGraphQL.Ctx() ctx: ApolloContext,
   ): Promise<String | undefined> {
     return 'hello'
   }
 
-  @TypeGraphQL.FieldResolver((type) => Date, { nullable: true })
+  @TypeGraphQL.FieldResolver(() => Date, { nullable: true })
   async now(
     @TypeGraphQL.Root() category: Category,
-    @TypeGraphQL.Ctx() { prisma }: Context,
+    @TypeGraphQL.Ctx() ctx: ApolloContext,
   ): Promise<Date> {
     return new Date()
   }

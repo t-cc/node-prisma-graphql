@@ -1,17 +1,8 @@
+import 'dotenv/config'
+// 👆 this must be the first import
 import 'reflect-metadata'
-import { User } from '@generated/type-graphql'
-import { UserInfo } from '@modules/auth/types'
+import { getApolloHandler } from '@core/handlers/apollo'
 import Fastify from 'fastify'
-import { ApolloServer, BaseContext } from '@apollo/server'
-import {
-  fastifyApolloHandler,
-  fastifyApolloDrainPlugin,
-  ApolloFastifyContextFunction,
-} from '@as-integrations/fastify'
-import { PrismaClient } from '@prisma/client'
-import categoryResolvers from '@modules/categories/resolvers'
-import authResolvers from '@modules/auth/resolvers'
-import { buildSchema } from 'type-graphql'
 import jwt from '@fastify/jwt'
 import fCookie from '@fastify/cookie'
 
@@ -19,11 +10,9 @@ const fastify = Fastify({
   logger: false, // depends on env...
 })
 
-fastify.get('/healthcheck', (req, res) => {
-  res.send({ message: 'Success' })
-})
+const SECRET_KEY: string = process.env.SECRET_KEY!
 
-fastify.register(jwt, { secret: 'supersecretcode-CHANGE_THIS-USE_ENV_FILE' })
+fastify.register(jwt, { secret: SECRET_KEY })
 // fastify.addHook('preHandler', (req, res, next) => {
 //   // here we are
 //   // console.log(fastify.jwt)
@@ -37,62 +26,18 @@ fastify.register(fCookie, {
   // hook: 'preHandler',
 })
 
+fastify.get('/healthcheck', (req, res) => {
+  res.send({ message: 'Success' })
+})
+
 async function main() {
-  // Apollo
-  const prisma = new PrismaClient()
-
-  interface ApolloContext extends BaseContext {
-    prisma: PrismaClient
-  }
-  const apolloContextFn: ApolloFastifyContextFunction<ApolloContext> = async (
-    request,
-    reply,
-  ) => ({
-    prisma,
-    setUserInfo: (user: User): string => {
-      const payload = {
-        id: user.id,
-        email: user.email,
-      }
-      const token = fastify.jwt.sign(payload)
-      reply.setCookie('token', token, {
-        path: '/',
-        httpOnly: true,
-        secure: true,
-      })
-      return token
-    },
-    getUserInfo: (): UserInfo | undefined => {
-      const token = request.cookies.token || request.headers.authorization
-      if (!token) {
-        return
-      }
-      const user = fastify.jwt.verify<UserInfo>(token)
-      user.token = token
-      return user
-    },
-    clearAuthCookie: (): void => {
-      reply.clearCookie('token')
-    },
-  })
-
-  const schema = await buildSchema({
-    resolvers: [...categoryResolvers, ...authResolvers],
-    validate: false,
-  })
-  const apollo = new ApolloServer<BaseContext>({
-    schema,
-    plugins: [fastifyApolloDrainPlugin(fastify)],
-  })
-  await apollo.start()
-
+  const apolloHandler = await getApolloHandler(fastify)
   fastify.route({
     url: '/graphql',
     method: ['GET', 'POST', 'OPTIONS'],
     // method: ['POST', 'OPTIONS''], // allow only POST and OPTIONS in prod
-    handler: fastifyApolloHandler(apollo, { context: apolloContextFn }),
+    handler: apolloHandler,
   })
-  /// -- end of Apollo
 
   try {
     await fastify.listen({ port: 3000 })

@@ -2,33 +2,46 @@ import * as TypeGraphQL from 'type-graphql'
 
 @TypeGraphQL.InputType('CategoryUpdateInput', {})
 export class CategoryUpdateInput {
-  @TypeGraphQL.Field((_type) => String, {
+  @TypeGraphQL.Field(() => String, {
     nullable: true,
   })
   code?: string | undefined
 
-  @TypeGraphQL.Field((_type) => String, {
+  @TypeGraphQL.Field(() => String, {
     nullable: true,
   })
   name?: string | undefined
 }
 
-@TypeGraphQL.ArgsType()
-export class CreateCategoryArgs {
-  @TypeGraphQL.Field((_type) => CategoryUpdateInput, {
+@TypeGraphQL.InputType('CategoryCreateInput', {})
+export class CategoryCreateInput {
+  @TypeGraphQL.Field(() => String, {
     nullable: false,
   })
-  data!: CategoryUpdateInput
+  code!: string
+
+  @TypeGraphQL.Field(() => String, {
+    nullable: false,
+  })
+  name!: string
+}
+
+@TypeGraphQL.ArgsType()
+export class CreateCategoryArgs {
+  @TypeGraphQL.Field(() => CategoryCreateInput, {
+    nullable: false,
+  })
+  data!: CategoryCreateInput
 }
 
 @TypeGraphQL.ArgsType()
 export class UpdateCategoryArgs {
-  @TypeGraphQL.Field((_type) => CategoryUpdateInput, {
+  @TypeGraphQL.Field(() => CategoryUpdateInput, {
     nullable: false,
   })
   data!: CategoryUpdateInput
 
-  @TypeGraphQL.Field((_type) => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(() => TypeGraphQL.Int, {
     nullable: false,
   })
   categoryId!: number

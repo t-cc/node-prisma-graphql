@@ -1,15 +1,16 @@
+import { ApolloContext } from '@core/handlers/types'
 import { Category } from '@generated/type-graphql'
 import { Ctx, Query, Resolver } from 'type-graphql'
 
-@Resolver((of) => Category)
+@Resolver(() => Category)
 export class CategoryQueries {
-  @Query((returns) => Category)
-  async firstCategory(@Ctx() ctx: any) {
+  @Query(() => Category)
+  async firstCategory(@Ctx() ctx: ApolloContext) {
     return ctx.prisma.category.findFirst()
   }
 
-  @Query((returns) => [Category])
-  async categories(@Ctx() ctx: any) {
+  @Query(() => [Category])
+  async categories(@Ctx() ctx: ApolloContext) {
     return ctx.prisma.category.findMany()
   }
 }

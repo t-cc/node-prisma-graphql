@@ -3,7 +3,7 @@ import * as TypeGraphQL from 'type-graphql'
 
 @TypeGraphQL.ObjectType('Me', {})
 export class Me extends User {
-  @TypeGraphQL.Field((_type) => String, {
+  @TypeGraphQL.Field(() => String, {
     nullable: false,
   })
   token!: string
