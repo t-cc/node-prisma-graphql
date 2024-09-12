@@ -4,6 +4,7 @@ import { AuthCheckerInterface, ResolverData } from 'type-graphql'
 export class CustomAuthChecker implements AuthCheckerInterface<ApolloContext> {
   constructor() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   check({ context }: ResolverData<ApolloContext>, roles: string[]) {
     const userInfo = context.getUserInfo()
     if (!userInfo) {

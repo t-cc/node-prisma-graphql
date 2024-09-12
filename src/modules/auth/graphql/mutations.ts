@@ -38,11 +38,7 @@ export class AuthMutations {
   @TypeGraphQL.Mutation(() => TypeGraphQL.Int, {
     nullable: true,
   })
-  async logout(
-    @TypeGraphQL.Ctx() ctx: ApolloContext,
-    @TypeGraphQL.Info() info: GraphQLResolveInfo,
-    @TypeGraphQL.Args() args: LoginArgs,
-  ): Promise<void> {
+  async logout(@TypeGraphQL.Ctx() ctx: ApolloContext): Promise<void> {
     ctx.clearAuthCookie()
     return
   }

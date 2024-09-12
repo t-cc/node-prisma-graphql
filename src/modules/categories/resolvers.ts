@@ -7,4 +7,5 @@ export default [
   CategoryQueries,
   CategoryFieldResolver,
   CategoryMutations,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 ] as NonEmptyArray<Function>
