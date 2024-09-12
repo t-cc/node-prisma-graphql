@@ -7,7 +7,7 @@ import jwt from '@fastify/jwt'
 import fCookie from '@fastify/cookie'
 
 const fastify = Fastify({
-  logger: false, // depends on env...
+  logger: false, // depends on env...??
 })
 
 const SECRET_KEY: string = process.env.SECRET_KEY!
@@ -40,7 +40,7 @@ async function main() {
   })
 
   try {
-    await fastify.listen({ port: 3000 })
+    await fastify.listen({ port: 3000, host: '0.0.0.0' })
     console.log(`✨🚀 Fastify server ready at: http://localhost:3000/`)
     console.log(`✨🚀 GraphQL ready at: http://localhost:3000/graphql`)
   } catch (err) {

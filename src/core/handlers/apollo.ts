@@ -60,6 +60,10 @@ export async function getApolloHandler(fastify: FastifyInstance) {
   const apollo = new ApolloServer<BaseContext>({
     schema,
     plugins: [fastifyApolloDrainPlugin(fastify)],
+    formatError: (err) => {
+      console.error(err)
+      return err
+    },
   })
   await apollo.start()
 
