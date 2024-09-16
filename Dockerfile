@@ -23,4 +23,4 @@ RUN pnpm build
 
 EXPOSE 3000
 
-CMD exec sleep 10 ; pnpm start
+CMD exec pnpm start
