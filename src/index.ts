@@ -10,21 +10,24 @@ import jwt from '@fastify/jwt'
 import './tasks.js'
 
 
-const fastify = Fastify({
-  logger: false, // depends on env...??
-})
-
 const PORT: number = parseInt(process.env.SERVER_PORT!)
 const SECRET_KEY: string = process.env.SECRET_KEY!
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 
-fastify.register(jwt, { secret: SECRET_KEY })
 
-fastify.get('/healthcheck', (req, res) => {
-  res.send({ message: 'Success' })
+const fastify = Fastify({
+  logger: false,
 })
 
 async function main() {
+
+
+  fastify.register(jwt, { secret: SECRET_KEY })
+
+  fastify.get('/healthcheck', (req, res) => {
+    res.send({ message: 'Success' })
+  })
+
 
   await addAdminJsToFastify(fastify)
 

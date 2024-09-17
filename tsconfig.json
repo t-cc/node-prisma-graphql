@@ -13,8 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "@modules/*": ["src/modules/*"],
-      "@core/*": ["src/core/*"],
-      "@generated/*": ["src/generated/*"],
+      "@core/*": ["src/core/*"]
     }
   },
   "ts-node": {

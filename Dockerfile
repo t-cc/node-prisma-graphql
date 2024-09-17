@@ -7,12 +7,14 @@ WORKDIR ./app
 # NV NODE_ENV=$NODE_ENV
 
 # COPY .env.${NODE_ENV} ./.env
-COPY .env-example ./.env
+COPY .env.prod ./.env
+COPY .swcrc ./.swcrc
 
 COPY package.json ./package.json
 COPY pnpm-lock.yaml ./pnpm-lock.yaml
 
 COPY prisma ./prisma
+COPY .adminjs ./.adminjs
 COPY src ./src
 COPY tsconfig.json ./tsconfig.json
 
