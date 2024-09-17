@@ -11,7 +11,7 @@ const SECRET_KEY = process.env.SECRET_KEY
 @TypeGraphQL.Resolver(() => User)
 export class AuthMutations {
 
-  @TypeGraphQL.Mutation(() => Me)
+  @TypeGraphQL.Mutation(() => Me, {nullable: true})
   async login(
     @TypeGraphQL.Ctx() ctx: ApolloContext,
     @TypeGraphQL.Info() info: GraphQLResolveInfo,

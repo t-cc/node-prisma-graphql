@@ -1,8 +1,13 @@
-import AdminJSFastify from '@adminjs/fastify'
+import AdminJSFastify, { AuthenticationOptions } from '@adminjs/fastify'
 import { Database, getModelByName, Resource } from '@adminjs/prisma'
 import { PrismaClient } from '@prisma/client'
 import AdminJS from 'adminjs'
+import bcrypt from 'bcrypt'
 import Fastify from 'fastify'
+
+
+const SECRET_KEY = process.env.SECRET_KEY!
+const COOKIE_NAME = process.env.COOKIE_NAME!
 
 const prisma = new PrismaClient()
 
@@ -10,8 +15,16 @@ AdminJS.registerAdapter({ Database, Resource })
 
 
 const adminJS = new AdminJS({
+  branding: {
+    companyName: 'COMPANY_NAME',
+    // favicon: FAVICON,
+    // logo: LOGO,
+    withMadeWithLove: false,
+  },
   databases: [],
   rootPath: '/admin',
+  loginPath: "/admin/login",
+  logoutPath: "/admin/logout",
   resources: [{
     resource: { model: getModelByName('Category'), client: prisma },
     options: {},
@@ -28,10 +41,38 @@ if (process.env.NODE_ENV === 'development') {
   adminJS.watch()
 }
 
+const loginAdmin = async (
+  email: string,
+  password: string
+): Promise<{email: string} | void> => {
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  })
+
+  if (user && user.password) {
+    if (
+      user &&
+      (await bcrypt.compare(`${password}${SECRET_KEY}`, user.password))
+    ) {
+      return { email }
+    }
+  }
+}
+
+const auth: AuthenticationOptions = {
+  authenticate: loginAdmin,
+  cookieName: `${COOKIE_NAME}_adminjs`,
+  cookiePassword: SECRET_KEY,
+};
+
+
 export async function addAdminJsToFastify(fastify:  Fastify.FastifyInstance) {
 
-  await AdminJSFastify.buildRouter(
+  await AdminJSFastify.buildAuthenticatedRouter(
     adminJS,
+    auth,
     fastify,
   )
 
