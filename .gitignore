@@ -12,10 +12,6 @@ yarn-error.log*
 .env
 .env.*
 
-.adminjs
-
-
-
 *.sqlite
 *.sqlite-journal
 
