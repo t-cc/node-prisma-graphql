@@ -15,7 +15,6 @@
       "@modules/*": ["src/modules/*"],
       "@core/*": ["src/core/*"],
       "@generated/*": ["src/generated/*"],
-      "@queues/*": ["src/queues/*"]
     }
   },
   "ts-node": {

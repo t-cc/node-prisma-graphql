@@ -1,5 +1,5 @@
 import type { ApolloContext } from '@core/handlers/types.js'
-import emailQueue from '@queues/email.js'
+import emailQueue from '@modules/auth/queues.js'
 import { Me } from './fields.js'
 import bcrypt from 'bcrypt'
 import { LoginArgs, SendEmailArgs } from './inputs.js'

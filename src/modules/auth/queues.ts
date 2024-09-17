@@ -4,10 +4,10 @@ const REDIS_HOST = process.env.REDIS_HOST!
 const REDIS_PORT = process.env.REDIS_PORT!
 
 const emailQueue = new Queue("email", {
- connection: {
+  connection: {
     host: REDIS_HOST,
     port: parseInt(REDIS_PORT),
-  },
+  }
 });
 
 
@@ -19,6 +19,7 @@ new Worker(emailQueue.name, async (job) => {
     host: REDIS_HOST,
     port: parseInt(REDIS_PORT),
   },
+  concurrency: 1,
 });
 
 export default emailQueue;

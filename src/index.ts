@@ -5,30 +5,10 @@ import { addAdminJsToFastify } from '@core/handlers/adminjs.js'
 import { getApolloHandler } from '@core/handlers/apollo.js'
 import Fastify from 'fastify'
 import jwt from '@fastify/jwt'
-// import defined queues to start the worker
-import emailQueue from '@queues/email.js'
 
+// import queues definitions
+import './queues.js'
 
-// Repeat job once every day at 3:15 (am)
-await emailQueue.add(
-  'email',
-  { email: 'every-day@dev.com' },
-  {
-    repeat: {
-      pattern: '0 15 3 * * *',
-    },
-  },
-);
-await emailQueue.add(
-  'email',
-  { email: 'every-10-seconds@dev.com' },
-  {
-    repeat: {
-      every: 10000,
-      limit: 100,
-    },
-  },
-);
 
 const fastify = Fastify({
   logger: false, // depends on env...??
