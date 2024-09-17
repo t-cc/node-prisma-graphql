@@ -1,5 +1,5 @@
 // import defined queues to start the workers
-import emailQueue from '@modules/auth/queues.js'
+import emailQueue from '@modules/auth/tasks.js'
 
 // Repeat job once every day at 3:15 (am)
 await emailQueue.add(
@@ -22,8 +22,3 @@ await emailQueue.add(
     },
   },
 );
-
-
-export default {
-  emailQueue,
-}

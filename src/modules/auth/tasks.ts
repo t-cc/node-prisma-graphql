@@ -13,7 +13,7 @@ const emailQueue = new Queue("email", {
 
 new Worker(emailQueue.name, async (job) => {
   console.log('working... ', job.data);
-  // Add your  logic here
+  // Add here the code for your task
 }, {
   connection: {
     host: REDIS_HOST,

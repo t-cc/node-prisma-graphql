@@ -7,7 +7,7 @@ import Fastify from 'fastify'
 import jwt from '@fastify/jwt'
 
 // import queues definitions
-import './queues.js'
+import './tasks.js'
 
 
 const fastify = Fastify({
