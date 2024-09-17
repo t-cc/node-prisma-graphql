@@ -1,14 +1,11 @@
 import 'dotenv/config'
 // 👆 this must be the first import
 import 'reflect-metadata'
-import AdminJS from 'adminjs'
+import { addAdminJsToFastify } from '@core/handlers/adminjs.js'
 import { getApolloHandler } from '@core/handlers/apollo.js'
 import Fastify from 'fastify'
-import AdminJSFastify from '@adminjs/fastify'
 import jwt from '@fastify/jwt'
 import fCookie from '@fastify/cookie'
-import { Database, Resource, getModelByName } from '@adminjs/prisma'
-import { PrismaClient } from '@prisma/client'
 
 const fastify = Fastify({
   logger: false, // depends on env...??
@@ -36,32 +33,7 @@ fastify.get('/healthcheck', (req, res) => {
 
 async function main() {
 
-  const prisma = new PrismaClient()
-
-  AdminJS.registerAdapter({ Database, Resource })
-  const adminJS = new AdminJS({
-    databases: [],
-    rootPath: '/admin',
-    resources: [{
-      resource: { model: getModelByName('Category'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Product'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('User'), client: prisma },
-      options: {},
-    }],
-  });
-
-  await AdminJSFastify.buildRouter(
-    adminJS,
-    fastify,
-  )
-
-  // only in dev
-  adminJS.watch()
-
+  await addAdminJsToFastify(fastify)
 
   const apolloHandler = await getApolloHandler(fastify)
   fastify.route({
