@@ -1,18 +1,17 @@
-import { ApolloContext } from '@core/handlers/types'
-import { Me } from './fields'
+import type { ApolloContext } from '@core/handlers/types.js'
+import { Me } from './fields.js'
 import bcrypt from 'bcrypt'
-import { LoginArgs } from './inputs'
+import { LoginArgs } from './inputs.js'
 import type { GraphQLResolveInfo } from 'graphql'
 import * as TypeGraphQL from 'type-graphql'
-import { User } from '@generated/type-graphql'
+import { User } from '@generated/type-graphql/models/User.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 
 @TypeGraphQL.Resolver(() => User)
 export class AuthMutations {
-  @TypeGraphQL.Mutation(() => Me, {
-    nullable: true,
-  })
+
+  @TypeGraphQL.Mutation(() => Me, {nullable: true})
   async login(
     @TypeGraphQL.Ctx() ctx: ApolloContext,
     @TypeGraphQL.Info() info: GraphQLResolveInfo,

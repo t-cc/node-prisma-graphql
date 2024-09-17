@@ -1,16 +1,16 @@
 import { ApolloServer, BaseContext } from '@apollo/server'
-import { CustomAuthChecker } from './auth'
-import { User } from '@generated/type-graphql'
+import { CustomAuthChecker } from './auth.js'
+import { User } from '@generated/type-graphql/models/User.js'
 import {
   ApolloFastifyContextFunction,
   fastifyApolloDrainPlugin,
   fastifyApolloHandler,
 } from '@as-integrations/fastify'
-import authResolvers from '@modules/auth/resolvers'
-import { UserInfo } from '@modules/auth/types'
-import categoryResolvers from '@modules/categories/resolvers'
+import authResolvers from '@modules/auth/resolvers.js'
+import { UserInfo } from '@modules/auth/types.js'
+import categoryResolvers from '@modules/categories/resolvers.js'
 import { PrismaClient } from '@prisma/client'
-import { ApolloContext } from './types'
+import { ApolloContext } from './types.js'
 import { FastifyInstance } from 'fastify'
 import { buildSchema } from 'type-graphql'
 

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
-    "lib": ["es2015"],
+    "target": "EsNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -10,11 +10,15 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@core/*": ["core/*"]
+      "@modules/*": ["src/modules/*"],
+      "@core/*": ["src/core/*"],
+      "@generated/*": ["src/generated/*"]
     }
+  },
+  "ts-node": {
+    "swc": true
   },
   "exclude": [
     "dist"

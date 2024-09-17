@@ -1,5 +1,5 @@
-import { AuthMutations } from './graphql/mutations'
-import { AuthQueries } from './graphql/queries'
+import { AuthMutations } from './graphql/mutations.js'
+import { AuthQueries } from './graphql/queries.js'
 import { NonEmptyArray } from 'type-graphql'
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type

@@ -1,5 +1,5 @@
-import { ApolloContext } from '@core/handlers/types'
-import { Category } from '@generated/type-graphql'
+import type { ApolloContext } from '@core/handlers/types.js'
+import { Category } from '@generated/type-graphql/models/Category.js'
 import { Ctx, Query, Resolver } from 'type-graphql'
 
 @Resolver(() => Category)

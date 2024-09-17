@@ -1,5 +1,5 @@
-import { ApolloContext } from '@core/handlers/types'
-import { Me } from './fields'
+import type{ ApolloContext } from '@core/handlers/types.js'
+import { Me } from './fields.js'
 import { Ctx, Query, Resolver, Authorized } from 'type-graphql'
 
 @Resolver(() => Me)
