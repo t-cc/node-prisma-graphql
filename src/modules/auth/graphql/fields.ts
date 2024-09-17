@@ -1,4 +1,4 @@
-import { User } from '@generated/type-graphql'
+import { User } from '@generated/type-graphql/models/User.js'
 import * as TypeGraphQL from 'type-graphql'
 
 @TypeGraphQL.ObjectType('Me', {})

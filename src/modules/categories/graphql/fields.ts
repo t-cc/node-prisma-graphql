@@ -1,4 +1,4 @@
-import { Category } from '@generated/type-graphql'
+import { Category } from '@generated/type-graphql/models/Category.js'
 import * as TypeGraphQL from 'type-graphql'
 
 @TypeGraphQL.Resolver(() => Category)

@@ -1,6 +1,6 @@
-import { ApolloContext } from '@core/handlers/types'
-import { Category } from '@generated/type-graphql'
-import { CreateCategoryArgs, UpdateCategoryArgs } from './inputs'
+import type { ApolloContext } from '@core/handlers/types.js'
+import  { Category } from '@generated/type-graphql/models/Category.js'
+import { CreateCategoryArgs, UpdateCategoryArgs } from './inputs.js'
 import * as TypeGraphQL from 'type-graphql'
 import type { GraphQLResolveInfo } from 'graphql'
 

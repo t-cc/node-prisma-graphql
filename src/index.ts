@@ -1,7 +1,7 @@
 import 'dotenv/config'
 // 👆 this must be the first import
 import 'reflect-metadata'
-import { getApolloHandler } from '@core/handlers/apollo'
+import { getApolloHandler } from '@core/handlers/apollo.js'
 import Fastify from 'fastify'
 import jwt from '@fastify/jwt'
 import fCookie from '@fastify/cookie'
