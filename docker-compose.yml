@@ -18,11 +18,11 @@ services:
     env_file:
       - .env
     depends_on:
-      postgres:
+      database:
         condition: service_healthy
         restart: true
 
-  postgres:
+  database:
     <<: *restart_policy
     image: "postgres:15-alpine"
     ports:
