@@ -12,3 +12,12 @@ export class LoginArgs {
   })
   password!: string
 }
+
+@TypeGraphQL.ArgsType()
+export class SendEmailArgs {
+  @TypeGraphQL.Field(() => String, {
+    nullable: false,
+  })
+  email!: string
+
+}

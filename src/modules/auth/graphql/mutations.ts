@@ -1,7 +1,8 @@
 import type { ApolloContext } from '@core/handlers/types.js'
+import emailQueue from '@queues/email.js'
 import { Me } from './fields.js'
 import bcrypt from 'bcrypt'
-import { LoginArgs } from './inputs.js'
+import { LoginArgs, SendEmailArgs } from './inputs.js'
 import type { GraphQLResolveInfo } from 'graphql'
 import * as TypeGraphQL from 'type-graphql'
 import { User } from '@generated/type-graphql/models/User.js'
@@ -40,5 +41,17 @@ export class AuthMutations {
   async logout(@TypeGraphQL.Ctx() ctx: ApolloContext): Promise<void> {
     ctx.clearAuthCookie()
     return
+  }
+
+
+  @TypeGraphQL.Mutation(() =>  Boolean)
+  async sendEmail(
+    @TypeGraphQL.Ctx() ctx: ApolloContext,
+    @TypeGraphQL.Info() info: GraphQLResolveInfo,
+    @TypeGraphQL.Args() args: SendEmailArgs,
+  ): Promise<boolean> {
+    await emailQueue.add('email', { email: args.email })
+
+    return false
   }
 }

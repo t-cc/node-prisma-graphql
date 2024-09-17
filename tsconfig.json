@@ -14,7 +14,8 @@
     "paths": {
       "@modules/*": ["src/modules/*"],
       "@core/*": ["src/core/*"],
-      "@generated/*": ["src/generated/*"]
+      "@generated/*": ["src/generated/*"],
+      "@queues/*": ["src/queues/*"]
     }
   },
   "ts-node": {
