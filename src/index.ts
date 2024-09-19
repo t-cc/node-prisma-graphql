@@ -40,7 +40,7 @@ async function main() {
 
   try {
     await fastify.listen({ port: PORT, host: '0.0.0.0' })
-    console.log(`✨🚀 Fastify server ready at: http://localhost:${PORT}/`)
+    console.log(`✨🚀 AdminJS at: http://localhost:${PORT}/admin`)
     console.log(`✨🚀 GraphQL ready at: http://localhost:${PORT}/graphql`)
   } catch (err) {
     fastify.log.error(err)

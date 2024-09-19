@@ -1,5 +1,5 @@
 import { ApolloServer, BaseContext } from '@apollo/server'
-import { CustomAuthChecker } from './auth.js'
+import { CustomAuthChecker } from 'src/core/auth.js'
 import { User } from '@generated/type-graphql/models/User.js'
 import {
   ApolloFastifyContextFunction,

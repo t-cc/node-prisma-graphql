@@ -1,21 +1,21 @@
-import * as TypeGraphQL from 'type-graphql'
+import {ArgsType, Field} from 'type-graphql'
 
-@TypeGraphQL.ArgsType()
+@ArgsType()
 export class LoginArgs {
-  @TypeGraphQL.Field(() => String, {
+  @Field(() => String, {
     nullable: false,
   })
   email!: string
 
-  @TypeGraphQL.Field(() => String, {
+  @Field(() => String, {
     nullable: false,
   })
   password!: string
 }
 
-@TypeGraphQL.ArgsType()
+@ArgsType()
 export class SendEmailArgs {
-  @TypeGraphQL.Field(() => String, {
+  @Field(() => String, {
     nullable: false,
   })
   email!: string

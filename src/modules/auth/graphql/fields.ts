@@ -1,9 +1,9 @@
 import { User } from '@generated/type-graphql/models/User.js'
-import * as TypeGraphQL from 'type-graphql'
+import { ObjectType, Field } from 'type-graphql'
 
-@TypeGraphQL.ObjectType('Me', {})
+@ObjectType('Me', {})
 export class Me extends User {
-  @TypeGraphQL.Field(() => String, {
+  @Field(() => String, {
     nullable: false,
   })
   token!: string

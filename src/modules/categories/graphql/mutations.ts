@@ -1,18 +1,18 @@
 import type { ApolloContext } from '@core/handlers/types.js'
 import  { Category } from '@generated/type-graphql/models/Category.js'
 import { CreateCategoryArgs, UpdateCategoryArgs } from './inputs.js'
-import * as TypeGraphQL from 'type-graphql'
+import {Resolver, Mutation, Ctx, Args, Info} from 'type-graphql'
 import type { GraphQLResolveInfo } from 'graphql'
 
-@TypeGraphQL.Resolver(() => Category)
+@Resolver(() => Category)
 export class CategoryMutations {
-  @TypeGraphQL.Mutation(() => Category, {
+  @Mutation(() => Category, {
     nullable: true,
   })
   async createCategory(
-    @TypeGraphQL.Ctx() ctx: ApolloContext,
-    @TypeGraphQL.Info() info: GraphQLResolveInfo,
-    @TypeGraphQL.Args() args: CreateCategoryArgs,
+    @Ctx() ctx: ApolloContext,
+    @Info() info: GraphQLResolveInfo,
+    @Args() args: CreateCategoryArgs,
   ): Promise<Category | null> {
     return ctx.prisma.category.create({
       data: {
@@ -23,13 +23,13 @@ export class CategoryMutations {
     })
   }
 
-  @TypeGraphQL.Mutation(() => Category, {
+  @Mutation(() => Category, {
     nullable: true,
   })
   async updateCategory(
-    @TypeGraphQL.Ctx() ctx: ApolloContext,
-    @TypeGraphQL.Info() info: GraphQLResolveInfo,
-    @TypeGraphQL.Args() args: UpdateCategoryArgs,
+    @Ctx() ctx: ApolloContext,
+    @Info() info: GraphQLResolveInfo,
+    @Args() args: UpdateCategoryArgs,
   ): Promise<Category | null> {
     return ctx.prisma.category.update({
       data: {

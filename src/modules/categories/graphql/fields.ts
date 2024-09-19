@@ -1,14 +1,14 @@
 import { Category } from '@generated/type-graphql/models/Category.js'
-import * as TypeGraphQL from 'type-graphql'
+import {Resolver, FieldResolver} from 'type-graphql'
 
-@TypeGraphQL.Resolver(() => Category)
+@Resolver(() => Category)
 export class CategoryFieldResolver {
-  @TypeGraphQL.FieldResolver(() => String, { nullable: true })
+  @FieldResolver(() => String, { nullable: true })
   async fullName(): Promise<string | undefined> {
     return 'hello'
   }
 
-  @TypeGraphQL.FieldResolver(() => Date, { nullable: true })
+  @FieldResolver(() => Date, { nullable: true })
   async now(): Promise<Date> {
     return new Date()
   }

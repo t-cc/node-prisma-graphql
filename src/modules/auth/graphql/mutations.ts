@@ -4,19 +4,19 @@ import { Me } from './fields.js'
 import bcrypt from 'bcrypt'
 import { LoginArgs, SendEmailArgs } from './inputs.js'
 import type { GraphQLResolveInfo } from 'graphql'
-import * as TypeGraphQL from 'type-graphql'
+import {Mutation, Resolver, Info, Args, Ctx, Int} from 'type-graphql'
 import { User } from '@generated/type-graphql/models/User.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 
-@TypeGraphQL.Resolver(() => User)
+@Resolver(() => User)
 export class AuthMutations {
 
-  @TypeGraphQL.Mutation(() => Me, {nullable: true})
+  @Mutation(() => Me, {nullable: true})
   async login(
-    @TypeGraphQL.Ctx() ctx: ApolloContext,
-    @TypeGraphQL.Info() info: GraphQLResolveInfo,
-    @TypeGraphQL.Args() args: LoginArgs,
+    @Ctx() ctx: ApolloContext,
+    @Info() info: GraphQLResolveInfo,
+    @Args() args: LoginArgs,
   ): Promise<User | null> {
     const user = (await ctx.prisma.user.findFirst({
       where: {
@@ -35,20 +35,20 @@ export class AuthMutations {
     return null
   }
 
-  @TypeGraphQL.Mutation(() => TypeGraphQL.Int, {
+  @Mutation(() => Int, {
     nullable: true,
   })
-  async logout(@TypeGraphQL.Ctx() ctx: ApolloContext): Promise<void> {
+  async logout(@Ctx() ctx: ApolloContext): Promise<void> {
     ctx.clearAuthCookie()
     return
   }
 
 
-  @TypeGraphQL.Mutation(() =>  Boolean)
+  @Mutation(() =>  Boolean)
   async sendEmail(
-    @TypeGraphQL.Ctx() ctx: ApolloContext,
-    @TypeGraphQL.Info() info: GraphQLResolveInfo,
-    @TypeGraphQL.Args() args: SendEmailArgs,
+    @Ctx() ctx: ApolloContext,
+    @Info() info: GraphQLResolveInfo,
+    @Args() args: SendEmailArgs,
   ): Promise<boolean> {
     await emailQueue.add('email', { email: args.email })
 
