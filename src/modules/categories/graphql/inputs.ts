@@ -46,3 +46,21 @@ export class UpdateCategoryArgs {
   })
   categoryId!: number
 }
+
+@ArgsType()
+export class UpdateCategoryFlatArgs {
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | undefined
+
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | undefined
+
+  @Field(() => Int, {
+    nullable: false,
+  })
+  categoryId!: number
+}
