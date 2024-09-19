@@ -3,6 +3,11 @@ import {Resolver, FieldResolver, Root} from 'type-graphql'
 
 @Resolver(() => Category)
 export class CategoryFieldResolver {
+  @FieldResolver(() => String, { nullable: false })
+  async code(@Root() category: Category): Promise<string> {
+    return `CODE-${category.code}`
+  }
+
    @FieldResolver(() => String, { nullable: false })
   async fullName(@Root() category: Category): Promise<string> {
     return `${category.code}-${category.name}`
