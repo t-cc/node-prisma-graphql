@@ -62,12 +62,13 @@ export async function connectApollo(httpServer: Server, app: Express) {
       context: async ({ req: request, res: response }) => ({
         prisma,
         getUserInfo: (): UserInfo | undefined => {
-          const cookies = cookie.parse(request.headers.cookie)
+          const cookies = cookie.parse(request.headers.cookie || '')
+
           const token = cookies[COOKIE_NAME] || request.headers.authorization
           if (!token) {
             return
           }
-          const user = jwt.verify<UserInfo>(token, SECRET_KEY)
+          const user = jwt.verify(token, SECRET_KEY) as UserInfo
           user.token = token
           return user
         },
