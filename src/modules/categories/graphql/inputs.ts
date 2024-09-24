@@ -1,4 +1,4 @@
-import  {InputType, Field, ArgsType, Int} from 'type-graphql'
+import { InputType, Field, ArgsType, Int } from 'type-graphql'
 
 @InputType('CategoryUpdateInput', {})
 export class CategoryUpdateInput {

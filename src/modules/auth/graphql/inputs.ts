@@ -1,4 +1,4 @@
-import {ArgsType, Field} from 'type-graphql'
+import { ArgsType, Field } from 'type-graphql'
 
 @ArgsType()
 export class LoginArgs {
@@ -19,5 +19,4 @@ export class SendEmailArgs {
     nullable: false,
   })
   email!: string
-
 }

@@ -1,6 +1,7 @@
 import { NonEmptyArray } from 'type-graphql'
-import { CategoryMutations } from './graphql/mutations.js'
+
 import { CategoryFieldResolver } from './graphql/fields.js'
+import { CategoryMutations } from './graphql/mutations.js'
 import { CategoryQueries } from './graphql/queries.js'
 
 export default [

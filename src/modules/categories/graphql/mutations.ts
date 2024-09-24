@@ -1,8 +1,14 @@
-import type { ApolloContext } from '@core/handlers/types.js'
-import  { Category } from '@generated/type-graphql/models/Category.js'
-import { CreateCategoryArgs, UpdateCategoryArgs, UpdateCategoryFlatArgs } from './inputs.js'
-import {Resolver, Mutation, Ctx, Args, Info} from 'type-graphql'
 import type { GraphQLResolveInfo } from 'graphql'
+import { Resolver, Mutation, Ctx, Args, Info } from 'type-graphql'
+
+import type { ApolloContext } from '@core/handlers/types.js'
+import { Category } from '@generated/type-graphql/models/Category.js'
+
+import {
+  CreateCategoryArgs,
+  UpdateCategoryArgs,
+  UpdateCategoryFlatArgs,
+} from './inputs.js'
 
 @Resolver(() => Category)
 export class CategoryMutations {
