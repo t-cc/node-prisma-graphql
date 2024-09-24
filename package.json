@@ -13,7 +13,8 @@
     "prettier": "prettier --write \"src/**/*.ts\"",
     "start": "env-cmd -f .env.local node dist/src/index.js",
     "start:prod": "prisma migrate deploy && node dist/src/index.js",
-    "tsc": "tsc"
+    "tsc": "swc src --quiet",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@adminjs/prisma": "^5.0.3",
@@ -36,6 +37,8 @@
     "type-graphql": "2.0.0-rc.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@eslint/js": "^9.10.0",
     "@swc/cli": "0.4.1-nightly.20240914",
     "@swc/core": "^1.7.26",
@@ -51,15 +54,25 @@
     "prisma": "^5.19.1",
     "typegraphql-prisma": "^0.28.0",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.5.0"
+    "typescript-eslint": "^8.5.0",
+    "husky": "^8.0.0"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all",
-    "plugins": ["@trivago/prettier-plugin-sort-imports"],
-    "importOrder": ["^[a-z]", "^\\@|\\$|\\#", "^."],
-    "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+    "plugins": [
+      "@trivago/prettier-plugin-sort-imports"
+    ],
+    "importOrder": [
+      "^[a-z]",
+      "^\\@|\\$|\\#",
+      "^."
+    ],
+    "importOrderParserPlugins": [
+      "typescript",
+      "decorators-legacy"
+    ],
     "importOrderSeparation": true
   },
   "private": true
