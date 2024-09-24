@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import { Server } from 'node:http'
 import { CustomAuthChecker } from 'src/core/auth.js'
 import { User } from '@generated/type-graphql/models/User.js'
@@ -17,6 +17,16 @@ import cookie from 'cookie'
 
 const COOKIE_NAME = process.env.COOKIE_NAME!
 const SECRET_KEY: string = process.env.SECRET_KEY!
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+
+const allowMethods = (...methods: string[]) => {
+  return (req : Request, res: Response, next: () => void) => {
+    if (!methods.map(m => m.toUpperCase()).includes(req.method.toUpperCase())) {
+      return res.status(401).send(`Method ${req.method} not allowed`)
+    }
+    next()
+  }
+}
 
 export async function connectApollo(httpServer : Server, app: Express) {
   const prisma = new PrismaClient()
@@ -41,6 +51,7 @@ export async function connectApollo(httpServer : Server, app: Express) {
 
   app.use(
     '/graphql',
+    allowMethods( ...(IS_DEVELOPMENT ?  ['GET', 'POST', 'OPTIONS'] : ['POST', 'OPTIONS'])),
     cors<cors.CorsRequest>(),
     express.json(),
     expressMiddleware(apollo, {
