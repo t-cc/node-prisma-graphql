@@ -2,8 +2,10 @@ import 'dotenv/config'
 // 👆 this must be the first import
 import 'reflect-metadata'
 import { addAdminJsToFastify } from '@core/handlers/adminjs.js'
-import { getApolloHandler } from '@core/handlers/apollo.js'
+import { connectApollo } from '@core/handlers/apollo.js'
 import Fastify from 'fastify'
+import express, { Express } from 'express'
+import http from 'http';
 import jwt from '@fastify/jwt'
 
 // import queues definitions
@@ -15,6 +17,22 @@ const SECRET_KEY: string = process.env.SECRET_KEY!
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 
 
+const app : Express = express();
+
+// Our httpServer handles incoming requests to our Express app.
+// Below, we tell Apollo Server to "drain" this httpServer,
+// enabling our servers to shut down gracefully.
+const httpServer = http.createServer(app);
+
+await connectApollo(httpServer, app);
+
+await new Promise<void>((resolve) => httpServer.listen({ port: PORT, host: '0.0.0.0' }, resolve));
+
+
+console.log(`✨🚀 AdminJS at: http://localhost:${PORT}/admin`)
+console.log(`✨🚀 GraphQL ready at: http://localhost:${PORT}/graphql`)
+
+/*
 const fastify = Fastify({
   logger: false,
 })
@@ -58,3 +76,6 @@ listeners.forEach((signal) => {
 })
 
 void main()
+
+
+ */
