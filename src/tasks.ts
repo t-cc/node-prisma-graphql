@@ -11,14 +11,14 @@ await emailQueue.add(
     },
   },
 );
-
-await emailQueue.add(
-  'email',
-  { email: 'every-10-seconds@dev.com' },
-  {
-    repeat: {
-      every: 10_000,
-      limit: 100,
-    },
-  },
-);
+//
+// await emailQueue.add(
+//   'email',
+//   { email: 'every-10-seconds@dev.com' },
+//   {
+//     repeat: {
+//       every: 10_000,
+//       limit: 100,
+//     },
+//   },
+// );
