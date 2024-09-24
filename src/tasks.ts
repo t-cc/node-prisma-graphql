@@ -10,8 +10,8 @@ await emailQueue.add(
       pattern: '0 15 3 * * *',
     },
   },
-);
-//
+)
+// // Repeat job once every 10 seconds
 // await emailQueue.add(
 //   'email',
 //   { email: 'every-10-seconds@dev.com' },

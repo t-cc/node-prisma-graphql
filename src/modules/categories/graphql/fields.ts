@@ -1,5 +1,6 @@
+import { Resolver, FieldResolver, Root } from 'type-graphql'
+
 import { Category } from '@generated/type-graphql/models/Category.js'
-import {Resolver, FieldResolver, Root} from 'type-graphql'
 
 @Resolver(() => Category)
 export class CategoryFieldResolver {
@@ -8,7 +9,7 @@ export class CategoryFieldResolver {
     return `CODE-${category.code}`
   }
 
-   @FieldResolver(() => String, { nullable: false })
+  @FieldResolver(() => String, { nullable: false })
   async fullName(@Root() category: Category): Promise<string> {
     return `${category.code}-${category.name}`
   }

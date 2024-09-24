@@ -1,18 +1,19 @@
-import type { ApolloContext } from '@core/handlers/types.js'
-import emailQueue from '@modules/auth/tasks.js'
-import { Me } from './fields.js'
 import bcrypt from 'bcrypt'
-import { LoginArgs, SendEmailArgs } from './inputs.js'
 import type { GraphQLResolveInfo } from 'graphql'
-import {Mutation, Resolver, Info, Args, Ctx, Int} from 'type-graphql'
+import { Mutation, Resolver, Info, Args, Ctx, Int } from 'type-graphql'
+
+import type { ApolloContext } from '@core/handlers/types.js'
 import { User } from '@generated/type-graphql/models/User.js'
+import emailQueue from '@modules/auth/tasks.js'
+
+import { Me } from './fields.js'
+import { LoginArgs, SendEmailArgs } from './inputs.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 
 @Resolver(() => User)
 export class AuthMutations {
-
-  @Mutation(() => Me, {nullable: true})
+  @Mutation(() => Me, { nullable: true })
   async login(
     @Ctx() ctx: ApolloContext,
     @Info() info: GraphQLResolveInfo,
@@ -43,8 +44,7 @@ export class AuthMutations {
     return
   }
 
-
-  @Mutation(() =>  Boolean)
+  @Mutation(() => Boolean)
   async sendEmail(
     @Ctx() ctx: ApolloContext,
     @Info() info: GraphQLResolveInfo,

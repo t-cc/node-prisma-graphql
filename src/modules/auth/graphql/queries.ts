@@ -1,6 +1,8 @@
-import type{ ApolloContext } from '@core/handlers/types.js'
-import { Me } from './fields.js'
 import { Ctx, Query, Resolver, Authorized } from 'type-graphql'
+
+import type { ApolloContext } from '@core/handlers/types.js'
+
+import { Me } from './fields.js'
 
 @Resolver(() => Me)
 export class AuthQueries {

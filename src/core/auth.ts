@@ -1,5 +1,6 @@
-import { ApolloContext } from '@core/handlers/types.js'
 import { AuthCheckerInterface, ResolverData } from 'type-graphql'
+
+import { ApolloContext } from '@core/handlers/types.js'
 
 export class CustomAuthChecker implements AuthCheckerInterface<ApolloContext> {
   constructor() {}
