@@ -1,9 +1,10 @@
-import AdminJSFastify, { AuthenticationOptions } from '@adminjs/fastify'
+
 import { Database, getModelByName, Resource } from '@adminjs/prisma'
 import { PrismaClient } from '@prisma/client'
 import AdminJS from 'adminjs'
+import AdminJSExpress, { AuthenticationOptions } from '@adminjs/express'
 import bcrypt from 'bcrypt'
-import Fastify from 'fastify'
+import { Express } from 'express'
 
 
 const SECRET_KEY = process.env.SECRET_KEY!
@@ -68,12 +69,12 @@ const auth: AuthenticationOptions = {
 };
 
 
-export async function addAdminJsToFastify(fastify:  Fastify.FastifyInstance) {
+export function connectAdminJs(app: Express) {
 
-  await AdminJSFastify.buildAuthenticatedRouter(
+  const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     adminJS,
     auth,
-    fastify,
   )
+  app.use(adminJS.options.rootPath, adminRouter)
 
 }

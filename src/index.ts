@@ -1,6 +1,7 @@
 import 'dotenv/config'
 // 👆 this must be the first import
 import 'reflect-metadata'
+import { connectAdminJs } from '@core/handlers/adminjs.js'
 import { connectApollo } from '@core/handlers/apollo.js'
 import express, { Express } from 'express'
 import http from 'http';
@@ -17,6 +18,8 @@ const app : Express = express();
 app.get('/healthcheck', (req, res) => {
   res.send('OK')
 })
+
+connectAdminJs(app)
 
 // Our httpServer handles incoming requests to our Express app.
 // Below, we tell Apollo Server to "drain" this httpServer,
