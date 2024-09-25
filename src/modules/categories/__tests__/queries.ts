@@ -1,32 +1,27 @@
-import { PrismaClient } from '@prisma/client'
+// import assert from 'node:assert'
 import { ApolloServer } from '@apollo/server'
-import 'reflect-metadata'
-import { buildSchema } from 'type-graphql'
-import categoryResolvers from '@modules/categories/resolvers.js'
-import authResolvers from '@modules/auth/resolvers.js'
-import { CustomAuthChecker } from '@core/auth.js'
-import assert from 'node:assert'
+import { defaultContext } from '@utils/test/apollo/defaultContext.js'
+import { getTestServer } from '@utils/test/apollo/getTestServer.js'
 
-const prisma = new PrismaClient()
+const { prisma } = defaultContext
 
-const contextValue = { prisma };
+describe('categories', () => {
+  let server: ApolloServer
 
-const schema = await buildSchema({
-  resolvers: [...categoryResolvers, ...authResolvers],
-  validate: false,
-  authChecker: CustomAuthChecker,
-})
+  beforeAll(async () => {
+    server = await getTestServer()
+    await prisma.category.create({
+      data: {
+        name: 'test',
+        code: 'test',
+      },
+    })
+  })
 
-async function getServer() {
-  return new ApolloServer({
-    schema
-  });
-}
-
-async function categories() {
-  const testServer = await getServer()
-  return testServer.executeOperation({
-      query: `
+  test('categories query', async () => {
+    const response = await server.executeOperation(
+      {
+        query: `
             query categories {
                 categories {
                     id
@@ -35,25 +30,16 @@ async function categories() {
                 }
             }
         `,
-      variables: {}
-    },
-    { contextValue });
-}
-
-describe('categories', () => {
-  prisma.category.create({
-    data: {
-      name: "test",
-      code: "test",
-    },
+        variables: {},
+      },
+      { contextValue: defaultContext },
+    )
+    expect(response.body.kind).toBe('single')
+    expect(response.body.singleResult.errors).toBeUndefined()
+    expect(response.body.singleResult.data?.categories).toHaveLength(1)
   })
 
-  describe('Categories list', () => {
-    it('return all categories', async () => {
-      const response = await categories();
-      assert(response.body.kind === 'single');
-      expect(response.body.singleResult.errors).toBeUndefined();
-      expect(response.body.singleResult.data?.categories).toHaveLength(1);
-    });
-  });
-});
+  afterAll(async () => {
+    await prisma.$disconnect()
+  })
+})
