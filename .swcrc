@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@modules/*": ["src/modules/*"],
-      "@core/*": ["src/core/*"]
+      "@core/*": ["src/core/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "transform": {
       "legacyDecorator": true,
