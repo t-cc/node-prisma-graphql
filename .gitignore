@@ -11,6 +11,7 @@ yarn-error.log*
 .pnp.js
 .env
 .env.*
+coverage
 
 *.sqlite
 *.sqlite-journal
