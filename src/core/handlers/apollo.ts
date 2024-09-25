@@ -10,9 +10,8 @@ import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { User } from '@generated/type-graphql/models/User.js'
-import authResolvers from '@modules/auth/resolvers.js'
 import { UserInfo } from '@modules/auth/types.js'
-import categoryResolvers from '@modules/categories/resolvers.js'
+import { resolvers } from '@modules/resolvers.js'
 import { PrismaClient } from '@prisma/client'
 
 import { ApolloContext } from './types.js'
@@ -36,7 +35,7 @@ export async function connectApollo(httpServer: Server, app: Express) {
   const prisma = new PrismaClient()
 
   const schema = await buildSchema({
-    resolvers: [...categoryResolvers, ...authResolvers],
+    resolvers,
     validate: false,
     authChecker: CustomAuthChecker,
   })

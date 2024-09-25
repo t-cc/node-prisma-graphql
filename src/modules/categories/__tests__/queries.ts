@@ -11,13 +11,13 @@ const prisma = new PrismaClient()
 
 const contextValue = { prisma };
 
-async function getServer() {
-  const schema = await buildSchema({
-    resolvers: [...categoryResolvers, ...authResolvers],
-    validate: false,
-    authChecker: CustomAuthChecker,
-  })
+const schema = await buildSchema({
+  resolvers: [...categoryResolvers, ...authResolvers],
+  validate: false,
+  authChecker: CustomAuthChecker,
+})
 
+async function getServer() {
   return new ApolloServer({
     schema
   });
