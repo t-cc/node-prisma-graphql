@@ -1,10 +1,27 @@
-version: "3.8"
-
 x-restart-policy: &restart_policy
   # our policy is always restart the container unless it is explicitly stopped
   # or Docker daemon is restarted
   restart: unless-stopped
 services:
+  api:
+    build:
+      context: .
+      target: base
+      args:
+        - NODE_ENV=local
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=local
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_healthy
+        restart: true
   database:
     <<: *restart_policy
     image: "postgres:15-alpine"
