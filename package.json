@@ -1,5 +1,5 @@
 {
-  "name": "prisma-fastify-boilerplate",
+  "name": "prisma-express-boilerplate",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "nodemon --watch src --ext ts --exec 'pnpm build && pnpm start'",
     "gen": "prisma generate",
     "lint": "eslint src --ignore-pattern 'src/generated/**' --fix",
-    "migrate": "prisma migrate dev --schema prisma/schema.prisma",
+    "migrate": "prisma migrate dev",
     "prettier": "prettier --write \"src/**/*.ts\"",
     "start": "env-cmd -f .env.local node dist/src/index.js",
     "start:prod": "prisma migrate deploy && node dist/src/index.js",
