@@ -16,7 +16,7 @@
     "tsc": "swc src --quiet",
     "prepare": "husky install",
     "docker:up": "docker compose up -d database redis",
-    "test": "jest --coverage --forceExit "
+    "test": "jest --coverage --forceExit src "
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
@@ -97,6 +97,7 @@
       "^@core/(.*)\\.js$": "<rootDir>/src/core/$1.ts",
       "^@utils/(.*)\\.js$": "<rootDir>/src/utils/$1.ts"
     },
+    "modulePathIgnorePatterns": ["<rootDir>/dist/"],
     "transform": {
       "^.+\\.(t|j)sx?$": "@swc/jest"
     }
