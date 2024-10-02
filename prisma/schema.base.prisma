@@ -14,5 +14,5 @@ generator typegraphql {
   provider        = "typegraphql-prisma"
   useSimpleInputs = true
   // Uncoment and gen to take a look at the generated schema
-  // output          = "../src/generated/type-graphql"
+  output          = "../src/generated/type-graphql"
 }
