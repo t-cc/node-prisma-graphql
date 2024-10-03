@@ -1,0 +1,17 @@
+x-restart-policy: &restart_policy
+  # our policy is always restart the container unless it is explicitly stopped
+  # or Docker daemon is restarted
+  restart: unless-stopped
+services:
+  database-test:
+    <<: *restart_policy
+    image: "postgres:15-alpine"
+    ports:
+      - "5433:5432"
+    env_file: ".env.test"
+
+  redis-test:
+    <<: *restart_policy
+    image: "redis:7-alpine"
+    ports:
+      - "6380:6379"

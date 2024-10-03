@@ -16,7 +16,7 @@
     "tsc": "swc src --quiet",
     "prepare": "husky install",
     "docker:up": "docker compose up -d database redis",
-    "test": "jest --coverage --forceExit src "
+    "test": "docker compose -f docker-compose.test.yml up -d && env-cmd -f .env.test prisma migrate dev --schema prisma/schema.prisma && env-cmd -f .env.test jest --coverage --forceExit src"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
