@@ -6,13 +6,11 @@ datasource db {
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["prismaSchemaFolder"]
-  // @todo: Suported by client but not by typegraphql
-  // output   = "../src/generated/type-graphql"
 }
 
 generator typegraphql {
   provider        = "typegraphql-prisma"
   useSimpleInputs = true
   // Uncoment and gen to take a look at the generated schema
-  output          = "../src/generated/type-graphql"
+  // output          = "../src/generated/type-graphql"
 }

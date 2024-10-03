@@ -4,11 +4,10 @@
   "type": "module",
   "scripts": {
     "build": "swc src --out-dir dist",
-    "concat-prisma": "cp prisma/schema.base.prisma prisma/schema.prisma && cat prisma/schema/*.prisma >> prisma/schema.prisma",
     "create-super-user": "pnpm build >> /dev/null 2>&1  && node dist/src/modules/auth/cli/create-super-user.js",
     "hash-password": "pnpm build >> /dev/null 2>&1  && node dist/src/modules/auth/cli/hash-password.js",
     "dev": "nodemon --watch src --ext ts --exec 'pnpm build && pnpm start'",
-    "gen": "pnpm concat-prisma && prisma generate",
+    "gen": "prisma generate",
     "lint": "eslint src --ignore-pattern 'src/generated/**' --fix",
     "migrate": "pnpm concat-prisma && prisma migrate dev --schema prisma/schema.prisma",
     "prettier": "prettier --write \"src/**/*.ts\"",
