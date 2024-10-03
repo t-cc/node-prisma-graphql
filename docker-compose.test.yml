@@ -33,7 +33,5 @@ services:
     depends_on:
       database-test:
         condition: service_healthy
-        restart: true
       redis-test:
         condition: service_healthy
-        restart: true
