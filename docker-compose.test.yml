@@ -9,9 +9,31 @@ services:
     ports:
       - "5433:5432"
     env_file: ".env.test"
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
 
   redis-test:
     <<: *restart_policy
     image: "redis:7-alpine"
     ports:
       - "6380:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+  wait:
+    image: hello-world:latest
+    depends_on:
+      database-test:
+        condition: service_healthy
+        restart: true
+      redis-test:
+        condition: service_healthy
+        restart: true
