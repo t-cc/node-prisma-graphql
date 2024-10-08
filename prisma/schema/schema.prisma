@@ -1,0 +1,16 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+generator typegraphql {
+  provider        = "typegraphql-prisma"
+  useSimpleInputs = true
+  // Uncoment and gen to take a look at the generated schema
+  // output          = "../../src/generated/type-graphql"
+}
