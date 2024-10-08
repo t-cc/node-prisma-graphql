@@ -18,17 +18,15 @@ services:
     depends_on:
       database:
         condition: service_healthy
-        restart: true
       redis:
         condition: service_healthy
-        restart: true
   database:
     <<: *restart_policy
     image: "postgres:15-alpine"
     ports:
       - "5432:5432"
     volumes:
-      - "backend-database:/var/lib/postgresql/data"
+      - "express-database:/var/lib/postgresql/data"
     env_file:
       - .env
     environment:
@@ -65,5 +63,5 @@ services:
     depends_on:
      - redis
 volumes:
-  backend-database:
+  express-database:
     external: true

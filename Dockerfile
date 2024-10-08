@@ -7,7 +7,7 @@ WORKDIR ./app
 # NV NODE_ENV=$NODE_ENV
 
 # COPY .env.${NODE_ENV} ./.env
-COPY .env.prod ./.env
+COPY .env.local ./.env
 COPY .swcrc ./.swcrc
 
 COPY package.json ./package.json
@@ -25,4 +25,4 @@ RUN pnpm build
 
 EXPOSE 3000
 
-CMD exec pnpm start:prod
+CMD exec pnpm start:local
