@@ -8,6 +8,8 @@ services:
     image: "postgres:15-alpine"
     ports:
       - "5432:5432"
+    volumes:
+      - "express-database:/var/lib/postgresql/data"
     env_file:
       - .env
     environment:
@@ -43,3 +45,6 @@ services:
       REDIS_PORT: ${REDIS_PORT}
     depends_on:
      - redis
+volumes:
+  express-database:
+    external: true
