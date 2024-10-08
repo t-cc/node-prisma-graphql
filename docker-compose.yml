@@ -22,7 +22,6 @@ services:
       timeout: 3s
       retries: 10
       start_period: 15s
-
   redis:
     <<: *restart_policy
     image: "redis:7-alpine"
@@ -45,6 +44,22 @@ services:
       REDIS_PORT: ${REDIS_PORT}
     depends_on:
      - redis
+  adminer:
+    <<: *restart_policy
+    image: adminer
+    volumes:
+      - "./increase-uploads.ini:/usr/local/etc/php/conf.d/0-upload_large_dumps.ini"
+    ports:
+      - 8080:8080
+
+  mailhog:
+    <<: *restart_policy
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui. Visit http://localhost:8025/ to check emails
+
 volumes:
   express-database:
     external: true
+
